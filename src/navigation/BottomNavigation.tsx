@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TokenScreen from '../components/TokenScreen';
-import SwapScreen from '../components/SwapScreen';
-import ProfileScreen from '../components/ProfileScreen';
+import TokenScreen from '../screens/TokenScreen';
+import SwapScreen from '../screens/SwapScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
