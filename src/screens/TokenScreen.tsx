@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import Token from "../components/Token";
 import axios, { AxiosResponse } from "axios";
+import { colors, fonts, fontSizes, sizes } from "../styles";
+import Header from "../components/Header";
 
 interface TokenData {
   symbol: string;
@@ -31,9 +33,12 @@ interface TokenData {
 const TokenScreen = () => {
   const [tokens, setTokens] = useState<TokenData[]>([]);
 
+  const ipHome: string = "10.0.0.151";
+  const ipWork: string = "104.39.55.229";
+
   useEffect(() => {
     axios
-      .get<TokenData[]>("http://10.0.0.151:3001/tokens")
+      .get<TokenData[]>(`http://${ipWork}:3001/tokens`)
       .then((response: AxiosResponse) => {
         setTokens(response.data);
       })
@@ -43,34 +48,47 @@ const TokenScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <FlatList
-          data={tokens}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <Token
-              tokenName={item.name}
-              tokenSymbol={item.symbol}
-              tokenPrice={item.usd_price}
-              tokenImage={item.logo}
-            />
-          )}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.subContainer}>
+        {tokens.length === 0 ? (
+          <Text style={styles.loading}>Loading...</Text>
+        ) : (
+          <FlatList
+            data={tokens}
+            style={styles.subContainer}
+            ListHeaderComponent={<Header title="Tokens" />}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <Token
+                tokenName={item.name}
+                tokenSymbol={item.symbol}
+                tokenPrice={item.usd_price}
+                tokenImage={item.logo}
+              />
+            )}
+          />
+        )}
+      </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    backgroundColor: "#000",
+    paddingHorizontal: sizes.padding,
+    backgroundColor: colors.background,
+    minHeight: "100%",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
+
+  subContainer: {
+    backgroundColor: colors.background,
+    marginBottom: sizes.marginTop,
+  },
+  loading: {
+    color: colors.fontActive,
+    fontSize: fontSizes.heading,
+    fontFamily: fonts.headingFont,
+    marginTop: sizes.marginTop,
   },
 });
 

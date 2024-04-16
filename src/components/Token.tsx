@@ -1,11 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { colors, fonts, fontSizes, sizes } from "../styles";
 
 type TokenProps = {
   tokenName: string;
   tokenSymbol: string;
   tokenPrice: string;
   tokenImage: string;
+};
+
+const generateEllipsis = (text: string, maxLength: number): string => {
+  if (text.length <= maxLength) {
+    return text;
+  } else {
+    return text.substring(0, maxLength) + "...";
+  }
 };
 
 import { Image } from "react-native";
@@ -22,7 +31,7 @@ const Token = ({
         <Image source={{ uri: tokenImage }} style={styles.image} />
         <View>
           <Text style={styles.symbol}>{tokenSymbol}</Text>
-          <Text style={styles.name}>{tokenName}</Text>
+          <Text style={styles.name}>{generateEllipsis(tokenName, 20)}</Text>
         </View>
       </View>
       <Text style={styles.price}>${tokenPrice}</Text>
@@ -36,27 +45,33 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 10,
+    marginBottom: 30,
   },
   containerImg: {
     flexDirection: "row",
     alignItems: "center",
   },
   symbol: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: fontSizes.tokenHeading,
+    fontFamily: fonts.tokenHeadingFont,
+    color: colors.fontActive,
     textTransform: "uppercase",
   },
   name: {
-    fontSize: 14,
+    fontSize: fontSizes.tokenSubHeading,
+    fontFamily: fonts.tokenSubHeadingFont,
+    color: colors.fontPassive,
   },
   price: {
-    fontSize: 16,
+    fontSize: fontSizes.tokenPrice,
+    fontFamily: fonts.tokenPriceFont,
+    color: colors.fontActive,
   },
   image: {
     width: 50,
     height: 50,
-    marginRight: 10,
+    borderRadius: sizes.radius,
+    marginRight: 20,
   },
 });
 
