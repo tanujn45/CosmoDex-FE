@@ -23,13 +23,12 @@ const BottomNavigation = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: colors.theme,
+          backgroundColor: colors.backgroundPassive,
           borderTopWidth: 0,
           height: sizes.bottomTabHeight,
-          borderRadius: sizes.radius,
-          paddingHorizontal: sizes.padding,
-          paddingBottom: sizes.padding,
-          margin: sizes.padding,
+          borderRadius: sizes.radiusSmall,
+          paddingHorizontal: 0,
+          margin: 30,
         },
       }}
     >

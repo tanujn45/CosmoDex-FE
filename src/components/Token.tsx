@@ -53,9 +53,10 @@ const styles = StyleSheet.create({
   },
   symbol: {
     fontSize: fontSizes.tokenHeading,
-    fontFamily: fonts.tokenHeadingFont,
+    fontFamily: fonts.medium,
     color: colors.fontActive,
     textTransform: "uppercase",
+    letterSpacing: 0.5,
   },
   name: {
     fontSize: fontSizes.tokenSubHeading,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: fontSizes.tokenPrice,
-    fontFamily: fonts.tokenPriceFont,
+    fontFamily: fonts.medium,
     color: colors.fontActive,
   },
   image: {

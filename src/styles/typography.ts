@@ -1,4 +1,7 @@
 export const fonts = {
+  bold: "Inter_700Bold",
+  medium: "Inter_500Medium",
+  regular: "Inter_400Regular",
   headingFont: "Inter_700Bold",
   bodyFont: "Inter_400Regular",
   tokenHeadingFont: "Inter_700Bold",
@@ -7,10 +10,12 @@ export const fonts = {
 };
 
 export const fontSizes = {
-  heading: 32,
-  subHeading: 18,
+  heading: 30,
+  subHeading: 22,
+  subSubHeading: 20,
   body: 16,
   tokenHeading: 18,
-  tokenSubHeading: 14,
-  tokenPrice: 16,
+  tokenSubHeading: 15,
+  tokenPrice: 17,
+  buttonFont: 20,
 };

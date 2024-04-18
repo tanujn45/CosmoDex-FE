@@ -4,6 +4,7 @@ import Token from "../components/Token";
 import axios, { AxiosResponse } from "axios";
 import { colors, fonts, fontSizes, sizes } from "../styles";
 import Header from "../components/Header";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface TokenData {
   symbol: string;
@@ -31,6 +32,7 @@ interface TokenData {
 }
 
 const TokenScreen = () => {
+  const insets = useSafeAreaInsets();
   const [tokens, setTokens] = useState<TokenData[]>([]);
 
   const ipHome: string = "10.0.0.151";
@@ -38,7 +40,7 @@ const TokenScreen = () => {
 
   useEffect(() => {
     axios
-      .get<TokenData[]>(`http://${ipWork}:3001/tokens`)
+      .get<TokenData[]>(`http://${ipHome}:3001/tokens`)
       .then((response: AxiosResponse) => {
         setTokens(response.data);
       })
@@ -50,13 +52,23 @@ const TokenScreen = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.subContainer}>
+        <Header
+          style={{
+            position: "absolute",
+            paddingBottom: sizes.paddingHeader,
+            zIndex: 1,
+            top: insets.top,
+            width: "100%",
+          }}
+          title="Tokens"
+        />
         {tokens.length === 0 ? (
           <Text style={styles.loading}>Loading...</Text>
         ) : (
           <FlatList
             data={tokens}
             style={styles.subContainer}
-            ListHeaderComponent={<Header title="Tokens" />}
+            ListHeaderComponent={<View style={{ height: 100 }} />}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <Token
@@ -75,12 +87,19 @@ const TokenScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingHorizontal: sizes.padding,
     backgroundColor: colors.background,
     minHeight: "100%",
   },
-
+  header: {
+    position: "absolute",
+    zIndex: 1,
+    width: "100%",
+    top: 0,
+  },
   subContainer: {
+    flex: 1,
     backgroundColor: colors.background,
     marginBottom: sizes.marginTop,
   },

@@ -1,41 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { colors, fonts, fontSizes, sizes } from "../styles";
+import { LinearGradient } from "expo-linear-gradient";
 
-const Header = ({ title }: { title: string }) => {
+const Header = ({
+  title,
+  style,
+}: {
+  title: string;
+  style?: StyleProp<ViewStyle>;
+}) => {
   return (
-    <View style={styles.headerContainer}>
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.addressContainer}>
-        <Text style={styles.address}>0x8fA...748</Text>
-      </View>
-    </View>
+    <LinearGradient
+      colors={[
+        "rgba(0, 0, 0, 1)",
+        "rgba(0, 0, 0, 1)",
+        "rgba(0, 0, 0, 1)",
+        "rgba(0, 0, 0, 0.4)",
+        "rgba(0, 0, 0, 0.4)",
+        "transparent",
+      ]}
+      style={[styles.headerContainer, style]}
+    >
+      <Text style={styles.headTitle}>{title}</Text>
+      <Text style={styles.address}>0x8fA...748</Text>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: sizes.marginTop,
-    marginBottom: sizes.padding,
+    alignItems: "baseline",
+    paddingTop: sizes.marginTop,
+    paddingBottom: sizes.padding,
   },
-  title: {
+  headTitle: {
     fontSize: fontSizes.heading,
-    fontFamily: fonts.headingFont,
+    fontFamily: fonts.medium,
     color: colors.fontActive,
-  },
-  addressContainer: {
-    backgroundColor: colors.fontPassive,
-    borderRadius: sizes.radius,
-    padding: 10,
+    // textDecorationLine: "underline",
   },
   address: {
     fontSize: fontSizes.subHeading,
     fontFamily: fonts.bodyFont,
-    color: colors.background,
+    color: colors.fontPassive,
   },
 });
 
